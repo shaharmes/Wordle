@@ -1,8 +1,17 @@
-import React from 'react'
+import React, { useContext } from 'react'
+import { gameContext } from '../context/GameContext';
+import { gameType, pointerType } from '../hooks/useGame';
 
 
-function Tile({letter}:{letter: string }) : JSX.Element {
-  return (<div className='letter'> {letter} </div>)
+function Tile({letter, row, col}:{letter: string, row: number, col: number }) : JSX.Element {
+
+  const {pointer} = useContext(gameContext) as gameType;
+  const pointerFocus = (pointer.current.currentRow === row && pointer.current.currentCol === col) ? true : false;
+
+  return (
+  <div className='letter'
+  style={ pointerFocus ? {border:"1.5px solid blue"} : {}}
+  > {letter} </div>)
 }
 
 export const GameTile = React.memo(Tile);

@@ -16,7 +16,7 @@ export function BoardTiles () : JSX.Element {
             <GameTileContainer key={`row-${i}`}>
               {container.map((gameTile, j) => {
                 return (
-                  <GameTile key={`row-${i}-col-${j}`} letter={gameTile.letter} />
+                  <GameTile key={`row-${i}-col-${j}`} letter={gameTile.letter} row={i} col={j} />
                 )
               })}
             </GameTileContainer>)
