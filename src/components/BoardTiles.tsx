@@ -1,23 +1,28 @@
-import { Tile } from "./BoardTile";
-import React from 'react';
+import React, { useContext } from 'react';
+import { gameContext } from "../context/GameContext";
+import { gameType } from "../hooks/useGame";
+import { gameTileType } from "./BoardDeafult";
+import { GameTile } from './BoardTile';
+import { GameTileContainer } from './TileRow';
 
 export function BoardTiles () : JSX.Element {
 
-  const lstLetters : number[] = [0, 1, 2, 3, 4];
-
-  const lstRows : number[] = [0, 1, 2, 3, 4, 5];
-
-  function CreateRow ({row} :{row : number}) : JSX.Element {
-    return (
-      <div id="row">
-        {lstLetters.map( num => (<Tile cellPosition={num} rowPosition={row} key={`row-${row}-cell${num}`}/>))}
-      </div>
-    )
-  }
+  const { board } = useContext(gameContext) as gameType;
 
   return (
     <div id="board" key={'board'}>
-      {lstRows.map( row => <CreateRow row={row} key={row}/>)}
+          {board.map((container: gameTileType[], i) => {
+          return (
+            <GameTileContainer key={`row-${i}`}>
+              {container.map((gameTile, j) => {
+                return (
+                  <GameTile key={`row-${i}-col-${j}`} letter={gameTile.letter} />
+                )
+              })}
+            </GameTileContainer>)
+        })}
     </div>
   )
 }
+
+

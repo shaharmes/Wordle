@@ -3,6 +3,8 @@ export type gameTileType = {
     state: string
   }
 
+export const ABC : string = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+
 export const BoardDefault : gameTileType[][] = 
     [
         [   {letter : '', state : ''},

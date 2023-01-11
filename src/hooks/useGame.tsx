@@ -1,5 +1,5 @@
 import react, {useRef, useState} from "react";
-import { BoardDefault, gameTileType } from "../components/BoardDeafult";
+import { ABC, BoardDefault, gameTileType } from "../components/BoardDeafult";
 
 
 export type pointerType = {
@@ -29,10 +29,10 @@ export function useGame() : gameType{
   }
 
   function boardHandler(value : string) : void {
-    if ("ABCDEFGHIJKLMNOPQRSTUVWXYZ".indexOf(value) === -1 ) return;
+    if (ABC.indexOf(value) === -1 ) return;
 
     const newBoard: gameTileType[][] = [...board];
-    newBoard[pointer.current.currentRow][pointer.current.currentCol].letter = value;
+    board[pointer.current.currentRow][pointer.current.currentCol].letter = value;
 
     updatePointer();
     setBoard(newBoard);

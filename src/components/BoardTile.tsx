@@ -1,19 +1,8 @@
-import React, {useContext} from 'react'
-import { gameContext } from '../context/GameContext';
-import { gameType } from '../hooks/useGame';
+import React from 'react'
 
 
-
-export function Tile({cellPosition, rowPosition}:{cellPosition: number, rowPosition: number }) : JSX.Element {
-
-  const { pointer, board}: gameType = useContext(gameContext) as gameType;
-   
-  const letter : string = board[rowPosition][cellPosition].letter;
-
-    
-  return (
-    <div className='letter' key={Math.random()}>
-      {letter}
-    </div>
-  )
+function Tile({letter}:{letter: string }) : JSX.Element {
+  return (<div className='letter'> {letter} </div>)
 }
+
+export const GameTile = React.memo(Tile);
