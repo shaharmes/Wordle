@@ -1,7 +1,7 @@
 import { Tile } from "./BoardTile";
 import React from 'react';
 
-export function BoardTiles () {
+export function BoardTiles () : JSX.Element {
 
   const lstLetters : number[] = [0, 1, 2, 3, 4];
 
@@ -17,7 +17,7 @@ export function BoardTiles () {
 
   return (
     <div id="board" key={'board'}>
-      {lstRows.map( row => <CreateRow row={row}/>)}
+      {lstRows.map( row => <CreateRow row={row} key={row}/>)}
     </div>
   )
 }

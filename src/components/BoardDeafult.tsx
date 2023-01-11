@@ -1,4 +1,4 @@
-export const BoardDefault : {letter: String, state: String}[][] = 
+export const BoardDefault : {letter: string, state: string}[][] = 
     [
         [   {letter : '', state : ''},
             {letter : '', state : ''},
