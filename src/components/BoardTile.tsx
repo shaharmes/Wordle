@@ -1,12 +1,14 @@
-import React, {useState} from 'react'
-import { BoardDefault } from './BoardDeafult';
+import React, {useContext} from 'react'
+import { gameContext } from '../context/GameContext';
+import { gameType } from '../hooks/useGame';
+
 
 
 export function Tile({cellPosition, rowPosition}:{cellPosition: number, rowPosition: number }) : JSX.Element {
 
-    const [board, setBoard] = useState<{letter: string, state: string}[][]>(BoardDefault);
-    
-    const letter : string = board[rowPosition][cellPosition].letter;
+  const { pointer, board}: gameType = useContext(gameContext) as gameType;
+   
+  const letter : string = board[rowPosition][cellPosition].letter;
 
     
   return (

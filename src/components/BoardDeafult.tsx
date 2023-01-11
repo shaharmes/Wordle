@@ -1,4 +1,9 @@
-export const BoardDefault : {letter: string, state: string}[][] = 
+export type gameTileType = {
+    letter: string,
+    state: string
+  }
+
+export const BoardDefault : gameTileType[][] = 
     [
         [   {letter : '', state : ''},
             {letter : '', state : ''},
