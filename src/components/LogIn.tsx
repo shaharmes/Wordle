@@ -21,7 +21,7 @@ export function LogIn() : JSX.Element {
             <div id="formContent">
                 <form id="formSign" onSubmit={handleSubmit(onSubmit)}>
                     <input {...register("Name")} className = "mt-3 fadeIn second" type="text" id="login" placeholder="Name"/>
-                    <input {...register("Password")} type="text" id="password" className="fadeIn third" placeholder="Password"/>
+                    <input {...register("Password")} type="password" id="password" className="fadeIn third" placeholder="Password"/>
                     <input type="submit" onClick={handleCloseLogin} className="fadeIn fourth" value="Log In"/>
                 </form>
             </div>
