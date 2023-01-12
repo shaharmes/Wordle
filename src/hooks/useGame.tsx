@@ -20,6 +20,12 @@ export type gameType = {
   setBoard: React.Dispatch<React.SetStateAction<gameTileType[][]>>,
   boardHandler: (value: string) => void,
   wordColoring: React.MutableRefObject<wordColoringType>
+  showResult: boolean,
+  setShowResult: React.Dispatch<React.SetStateAction<boolean>>,
+  handleShowResult: () => void,
+  handleCloseResult: () => void,
+  gameReset: () => void
+  gameResult: React.MutableRefObject<string | null>
 }
 
 export function useGame() : gameType{
@@ -27,11 +33,53 @@ export function useGame() : gameType{
   const [board, setBoard] = useState<gameTileType[][]>(BoardDefault);
   const pointer = useRef<pointerType>({currentRow: 0, currentCol: 0});
   const wordColoring = useRef<wordColoringType>({correct: [], almost: [], error: []});
+  const [showResult, setShowResult] = useState(false);
+  let gameResult = useRef<string | null>(null);
+
+  const handleShowResult = () => setShowResult(true);
+  const handleCloseResult = () => setShowResult(false);
+  
   const word = 'LEMON';
 
   useEffect(() => {
     document.getElementById('game')?.focus();
   }, [])
+
+  function gameReset(): void {
+    const cleanBoard: gameTileType[][] = board.map(function (row:gameTileType[]): gameTileType[] {
+      return row.map(function (tile:gameTileType): gameTileType {
+        tile.state = '';
+        tile.letter = '';
+        return tile;
+      })
+    })
+    gameResult.current = null;
+    pointer.current.currentRow = 0;
+    pointer.current.currentCol = 0;
+    wordColoring.current.correct = [];
+    wordColoring.current.almost = [];
+    wordColoring.current.error = [];
+    setBoard(cleanBoard);
+    return;
+  }
+
+  function checkWin() {
+    const currWord = board[pointer.current.currentRow-1].map(function (tile:gameTileType): string {
+      return tile.letter;
+    }).join('');
+
+    if (currWord === word) {
+      pointer.current.currentRow = pointer.current.currentRow + 1;
+      pointer.current.currentCol = 5;
+      gameResult.current  = 'Win';
+      return handleShowResult();
+    }
+
+    if (pointer.current.currentRow === 6) {
+      gameResult.current = 'Lose';
+      return handleShowResult();
+    }
+  }
 
   function colorRow(row : number) : void {
     const newBoardColor : gameTileType[][] = [...board];
@@ -62,6 +110,7 @@ export function useGame() : gameType{
           pointer.current.currentCol = 0;
           colorRow(pointer.current.currentRow);
           pointer.current.currentRow++;
+          checkWin();
         } else {
           pointer.current.currentCol++;
         }
@@ -99,7 +148,13 @@ export function useGame() : gameType{
     board,
     setBoard,
     boardHandler,
-    wordColoring
+    wordColoring,
+    showResult,
+    setShowResult,
+    handleShowResult,
+    gameResult,
+    handleCloseResult,
+    gameReset
   }
 }
 

@@ -8,10 +8,8 @@ import { Home } from "./pages/HomePage";
 
 
 export const router = createBrowserRouter([
-  {
-    
+  { 
     element: <App/>,
-    path: "/",
     children: [
       {
         path: "/",
@@ -19,7 +17,7 @@ export const router = createBrowserRouter([
       },
       {
         path: "wordle",
-        element: <Game />
+        element: <Game/>
       },
     ]
   },

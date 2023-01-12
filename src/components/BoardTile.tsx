@@ -1,12 +1,12 @@
 import React, { useContext } from 'react'
 import { gameContext } from '../context/GameContext';
-import { gameType, pointerType } from '../hooks/useGame';
+import { gameType } from '../hooks/useGame';
 
 
 function Tile({letter, row, col}:{letter: string, row: number, col: number }) : JSX.Element {
 
   const {pointer, board} = useContext(gameContext) as gameType;
-  const pointerFocus = (pointer.current.currentRow === row && pointer.current.currentCol === col) ? true : false;
+  const pointerFocus: boolean = (pointer.current.currentRow === row && pointer.current.currentCol === col) ? true : false;
 
   return (
   <div className='letter' id={board[row][col].state}
