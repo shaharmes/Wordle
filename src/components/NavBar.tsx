@@ -22,9 +22,14 @@ export function NavBar() : JSX.Element {
     }
 
   const handleLogout = ():void => {
+    localStorage.removeItem('user');
     setUser('');
     sendHome();
   }
+
+  if (localStorage.getItem('user')) {
+    setUser(localStorage.getItem('user') as string);
+    }
 
   return (
     <nav className="navbar navbar-dark bg-dark" id='navB'>

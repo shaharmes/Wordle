@@ -107,6 +107,7 @@ export function useGame() : gameType{
    switch (direction) {
       case "FORWARD":
         if (pointer.current.currentCol === 4) {
+          console.log('done');
           pointer.current.currentCol = 0;
           colorRow(pointer.current.currentRow);
           pointer.current.currentRow++;

@@ -11,6 +11,7 @@ export function LogIn() : JSX.Element {
     const { setUser, handleCloseLogin } = useContext(navContext) as navType;
   
     const onSubmit = (data: FormData) => {
+        localStorage.setItem('user', data.Name);
         setUser(data.Name);
     }
 
