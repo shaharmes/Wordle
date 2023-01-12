@@ -1,4 +1,4 @@
-import react, {useRef, useState} from "react";
+import {useEffect, useRef, useState} from "react";
 import { ABC, BoardDefault, gameTileType } from "../components/BoardDeafult";
 
 
@@ -18,6 +18,10 @@ export function useGame() : gameType{
 
   const [board, setBoard] = useState<gameTileType[][]>(BoardDefault);
   const pointer = useRef<pointerType>({currentRow: 0, currentCol: 0});
+
+  useEffect(() => {
+    document.getElementById('game')?.focus();
+  }, [])
 
   function updatePointer(direction : string) : void {
    switch (direction) {
@@ -47,7 +51,7 @@ export function useGame() : gameType{
   }
 
   function boardHandler(value : string) : void {
-    if (value === "DELETE") return deleteLetter();
+    if (value === "DELETE" || value === "BACKSPACE") return deleteLetter();
     if (ABC.indexOf(value) === -1 ) return;
 
     const newBoard: gameTileType[][] = [...board];
