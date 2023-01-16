@@ -63,21 +63,30 @@ export function useGame() : gameType{
     return;
   }
 
-  function checkWin() {
+  async function checkWin() {
     const currWord = board[pointer.current.currentRow-1].map(function (tile:gameTileType): string {
       return tile.letter;
     }).join('');
 
-    if (currWord === word) {
-      pointer.current.currentRow = pointer.current.currentRow + 1;
-      pointer.current.currentCol = 5;
-      gameResult.current  = 'Win';
-      return handleShowResult();
+    const data = {
+      word: word,
+      pointer: pointer.current,
+      currWord : currWord
     }
 
-    if (pointer.current.currentRow === 6) {
-      gameResult.current = 'Lose';
-      return handleShowResult();
+    const getResult: Response = await fetch('http://localhost:3003/wordle', 
+    {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(data)
+    })
+
+    const result: string = await getResult.text();
+    if (result === 'Win' || result === 'Lose') {
+      gameResult.current = result;
+      handleShowResult();
     }
   }
 
