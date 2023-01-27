@@ -1,11 +1,9 @@
 import React from 'react';
-import Game from "./pages/GamePage";
 import { useGame } from "./hooks/useGame";
 import { gameContext } from "./context/GameContext";
 import { navContext } from './context/NavContext';
 import { useNav } from './hooks/useNav';
 import { NavBar } from './components/NavBar';
-import { Home } from './pages/HomePage';
 import { Outlet } from 'react-router-dom';
 
 

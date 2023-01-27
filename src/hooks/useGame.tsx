@@ -39,8 +39,6 @@ export function useGame() : gameType{
   const handleShowResult = () => setShowResult(true);
   const handleCloseResult = () => setShowResult(false);
   
-  const word = 'LEMON';
-
   useEffect(() => {
     document.getElementById('game')?.focus();
   }, [])
@@ -69,12 +67,11 @@ export function useGame() : gameType{
     }).join('');
 
     const data = {
-      word: word,
       pointer: pointer.current,
       currWord : currWord
     }
 
-    const getResult: Response = await fetch('http://localhost:3003/wordle', 
+    const getResult: Response = await fetch('http://localhost:3003/wordle/win', 
     {
       method: 'POST',
       headers: {
@@ -90,26 +87,28 @@ export function useGame() : gameType{
     }
   }
 
-  function colorRow(row : number) : void {
+
+  async function colorRow(row : number) : Promise<void> {
     const newBoardColor : gameTileType[][] = [...board];
-    newBoardColor[row].forEach(function (tile:gameTileType, col:number): void {
-      if (word.indexOf(tile.letter) === -1) {
-        tile.state = 'error';
-        wordColoring.current.error.push(tile.letter);
-      }
 
-      if (word.indexOf(tile.letter) === col) {
-        tile.state = 'correct';
-        wordColoring.current.correct.push(tile.letter);
-      }
+    const data = {
+      wordColoring: wordColoring.current,
+      newBoardColor: newBoardColor,
+      row: row
+    }
 
-      if (word.indexOf(tile.letter) !== col && word.indexOf(tile.letter) !== -1) {
-        tile.state = 'almost';
-        wordColoring.current.almost.push(tile.letter);
-      }
-   
+    const getResult: Response = await fetch('http://localhost:3003/wordle/color', 
+    {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(data)
     })
-    setBoard(newBoardColor);
+
+    const result = await getResult.json();
+    wordColoring.current = result.wordColoring;
+    setBoard(result.newBoardColor);
   }
 
   function updatePointer(direction : string) : void {
