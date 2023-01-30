@@ -71,7 +71,7 @@ export function useGame() : gameType{
       currWord : currWord
     }
 
-    const getResult: Response = await fetch('http://localhost:3003/wordle/win', 
+    const getResult: Response = await fetch('http://localhost:3333/wordle/win', 
     {
       method: 'POST',
       headers: {
@@ -87,7 +87,6 @@ export function useGame() : gameType{
     }
   }
 
-
   async function colorRow(row : number) : Promise<void> {
     const newBoardColor : gameTileType[][] = [...board];
 
@@ -97,7 +96,7 @@ export function useGame() : gameType{
       row: row
     }
 
-    const getResult: Response = await fetch('http://localhost:3003/wordle/color', 
+    const getResult: Response = await fetch('http://localhost:3333/wordle/color', 
     {
       method: 'POST',
       headers: {
